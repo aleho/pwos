@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+TS=$(date +'%s')
+DATE=$(date +'%Y%m%d_%H%M%S')
+
+TARGET="dist"
+DB_IN="src/data/db.json"
+DB_OUT="${TARGET}/data/db.json"
+VARS_FILE="src/js/vars.js"
+
+
+function build_db_file() {
+    echo "Building ${DB_OUT}…"
+
+    # pretty-fy database source file
+    jq 'sort_by(.title)' ${DB_IN} > ${DB_IN}.tmp && mv ${DB_IN}.tmp ${DB_IN}
+
+    # compact built file
+    jq -c '.' ${DB_IN} > ${DB_OUT}
+}
+
+function build_resources() {
+    echo "Setting release version ${DATE} (${TS})…"
+
+    # set release version number in vars file
+    sed -i "s/^var PWOS_VERSION = [0-9]*;/var PWOS_VERSION = ${TS};/" ${VARS_FILE}
+    sed -i "s/^var PWOS_DATE = '[0-9_]*';/var PWOS_DATE = '${DATE}';/" ${VARS_FILE}
+
+    echo "Building resources…"
+    node_modules/.bin/gulp
+}
+
+function commit_push_dist() {
+    echo "Preparing and pushing release v${DATE}…"
+
+    git add ${TARGET}/ ${VARS_FILE}
+    git commit ${TARGET}/ ${VARS_FILE} -m "Release v${DATE}"
+    git tag -s v${DATE} -m "Release v${DATE}"
+    git push origin --tags
+    git subtree push --prefix ${TARGET} origin gh-pages
+}
+
+
+build_db_file
+build_resources
+commit_push_dist

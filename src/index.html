@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Passwords of Shame</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+
+        <link href="css/index.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <main class="pt-5 pb-5">
+            <div class="container">
+                <div class="jumbotron pt-4 pb-2">
+                    <h1 class="display-5"><i class="fa fa-2x fa-hashtag"></i> Passwords of Shame</h1>
+
+                    <p class="lead mt-3">This is a collection of sites and products enforcing insecure credentials.</p>
+
+                    <p>
+                        <a href="https://twitter.com/hashtag/pwos" target="_blank">#pwos</a>
+                        <a href="https://twitter.com/hashtag/passwordsOfShame" target="_blank">#passwordsOfShame</a>
+                    </p>
+
+                    <hr>
+
+                    <p><small>DISCLAIMER: The data shown here isn't necessarily up to date. Use the <a href="https://github.com/aleho/pwos">GitHub repository</a> to request changes.</small></p>
+                </div>
+
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="row">
+                                    <div class="col-sm-2 col-auto col-xl-1">
+                                        Site
+                                    </div>
+                                    <div class="col-sm-10 col-auto col-xl-8">
+                                        <input data-filter="title" type="search" class="filter form-control form-control-sm" placeholder="filter">
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="row">
+                                    <div class="col-sm-2 col-auto col-xl-1">
+                                        <i class="fa fa-fw fa-globe"></i>
+                                    </div>
+                                    <div class="col-sm-10 col-auto col-xl-8">
+                                        <input data-filter="url" type="search" class="filter form-control form-control-sm" placeholder="filter">
+                                    </div>
+                                </div>
+                            </th>
+
+                            <th scope="col" class="attr"><i class="fa fa-fw fa-step-backward" title="min length"></i></th>
+                            <th scope="col" class="attr"><i class="fa fa-fw fa-step-forward" title="max length"></i></th>
+                            <th scope="col" class="attr"><span title="alphabetical letters">A–Z</span></th>
+                            <th scope="col" class="attr"><span title="digits">0–9</span></th>
+                            <th scope="col" class="attr"><span title="spaces">__</span></th>
+                            <th scope="col" class="attr"><span title="special characters">!#?</span></th>
+                            <th scope="col" class="attr"><span title="case sensitive">Aa</span></th>
+                            <th scope="col" class="attr"><i class="fa fa-fw fa-sync-alt" title="changeable"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="site-template">
+                        <tr>
+                            <td class="title"></td>
+                            <td><a href="#" class="url text-truncate" target="_blank"></a></td>
+
+                            <td class="attr min"></td>
+                            <td class="attr max"></td>
+                            <td class="attr alpha"><i class="fa fa-fw fa-times text-danger invisible"></i></td>
+                            <td class="attr digit"><i class="fa fa-fw fa-times text-danger invisible"></i></td>
+                            <td class="attr space"><i class="fa fa-fw fa-times text-danger invisible"></i></td>
+                            <td class="attr special"><i class="fa fa-fw fa-times text-danger invisible"></i></td>
+                            <td class="attr case"><i class="fa fa-fw fa-times text-danger invisible"></i></td>
+                            <td class="attr changeable"><i class="fa fa-fw fa-times text-danger invisible"></i></td>
+                        </tr>
+                    </tbody>
+                    <tbody id="sites-list">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer class="p-5 text-center">
+            Last update: <span id="last-update">2018</span>
+        </footer>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+        <script src="js/index.js"></script>
+        <script>PWoS.init();</script>
+    </body>
+</html>

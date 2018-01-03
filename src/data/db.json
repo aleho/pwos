@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Haydn Cinema Login",
+    "url": "https://www.haydnkino.at/User/Login",
+    "pw": {
+      "min": "5",
+      "max": "5",
+      "digit": true
+    }
+  },
+  {
+    "title": "Wien Energie",
+    "url": "https://service.wienenergie.at/",
+    "pw": {
+      "min": "5",
+      "alpha": true,
+      "digit": true,
+      "special": true,
+      "case": true,
+      "changeable": true
+    }
+  }
+]

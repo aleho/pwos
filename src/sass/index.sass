@@ -1,0 +1,52 @@
+@mixin truncate-text($selector)
+    @media (max-width: 1199px)
+        #{$selector}
+            max-width: 12em
+    @media (max-width: 991px)
+        #{$selector}
+            max-width: 10em
+    @media (max-width: 767px)
+        #{$selector}
+            max-width: 8em
+    @media (max-width: 575px)
+        #{$selector}
+            max-width: 6em
+
+    #{$selector}
+        display: inline-block
+
+
+.text-bold
+    font-weight: bold
+
+
+body
+    background: #45494d
+    color: #ddd
+
+main
+    background: white
+    color: #333
+    min-height: 40rem
+
+footer
+    font-size: 85%
+
+
+th
+    &.attr
+        > *
+            display: inline-block
+            cursor: help
+
+th, td
+    &.attr
+        text-align: center
+
+
+@include truncate-text('td a.url')
+
+
+#site-template
+    tr
+        display: none
