@@ -2,7 +2,7 @@
 
 TS=$(date +'%s')
 DATE=$(date +'%Y%m%d_%H%M%S')
-
+VARS_FILE="src/js/vars.js"
 DIST="dist"
 
 
