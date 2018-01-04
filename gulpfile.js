@@ -6,7 +6,6 @@ const gulp       = require('gulp');
 const gulpIf     = require('gulp-if');
 const log        = require('fancy-log');
 const replace    = require('gulp-replace');
-const rewrite    = require('gulp-rewrite-css');
 const sass       = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const uglifyEs   = require('gulp-uglifyes');
@@ -19,7 +18,6 @@ const DIST    = 'dist/';
 const JS_OUT  = DIST + 'js/';
 const CSS_OUT = DIST + 'css/';
 const TASKS   = [];
-const CDN_URL = 'https://cdn.rawgit.com/aleho/pwos/v' + vars.PWOS_DATE + '/dist/';
 
 const JS_FILES = {
     'index': [
@@ -135,7 +133,7 @@ addTasks('html', HTML_FILES,
             return gulp
                 .on('error', function (err) { log(err.toString()); })
                 .src(files)
-                .pipe(replace(/"(js|css)\/([^".]+)\.(js|css)"/g, '"' + CDN_URL + '$1/$2.min.$3"'))
+                .pipe(replace(/"(js|css)\/([^"/.]+)\.(js|css)"/g, '"$1/$2.min.$3?v=' + vars.PWOS_DATE + '"'))
                 .pipe(gulp.dest(DIST));
         };
     }
