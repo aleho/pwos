@@ -9,6 +9,19 @@
     }
   },
   {
+    "title": "UniCredit Bank Austria",
+    "url": "https://online.bankaustria.at/wps/portal/userlogin",
+    "pw": {
+      "min": "5",
+      "max": "37",
+      "alpha": true,
+      "digit": "onchange",
+      "special": "onchange",
+      "case": "onchange",
+      "changeable": true
+    }
+  },
+  {
     "title": "Wien Energie",
     "url": "https://service.wienenergie.at/",
     "pw": {
