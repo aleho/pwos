@@ -2,7 +2,7 @@ var PWoS = (function ($) {
     const MIN_LEN_BAD = 5;
     const MAX_LEN_BAD = 16;
 
-    const DB_URL = 'data/db.json?ts=' + PWOS_VERSION;
+    const DB_URL = 'data/db.json?v=' + PWOS_VERSION;
 
     const ATTRS = [
         'alpha', 'digit', 'space', 'special', 'case', 'changeable'
@@ -27,8 +27,12 @@ var PWoS = (function ($) {
         $row.find('.attr.max').text(data.pw.max).toggleClass('text-danger text-bold', data.pw.max <= MAX_LEN_BAD);
 
         for (let attr of ATTRS) {
+            let $col = $row.find('.attr.' + attr);
+
             if (!data.pw[attr]) {
-                $row.find('.attr.' + attr + ' i').removeClass('invisible');
+                $col.find('i.attr-false').removeClass('hidden');
+            } else {
+                $col.find('i.attr-' + data.pw[attr]).removeClass('hidden');
             }
         }
     }
@@ -76,7 +80,7 @@ var PWoS = (function ($) {
                 showResults();
             })
             .fail(function () {
-                console.log('fail') //XXX TODO!
+                $('#content').append($('<p>').addClass('alert alert-danger').text('Failed to load database'));
             });
     }
 
