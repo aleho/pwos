@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+DB_IN="src/data/db.json"
+DB_OUT="dist/data/db.json"
+VARS_FILE="src/js/vars.js"
+
+
+function build_db_file() {
+    echo "Building ${DB_OUT}…"
+
+    # pretty-fy database source file
+    jq 'sort_by(.title)' ${DB_IN} > ${DB_IN}.tmp && mv ${DB_IN}.tmp ${DB_IN}
+
+    # compact built file
+    jq -c '.' ${DB_IN} > ${DB_OUT}
+}
+
+function build_resources() {
+    local ts=$1
+    local date=$2
+
+    if [[ -n ${ts} ]]; then
+        echo "Setting release version ${DATE} (${TS})…"
+
+        # set release version number in vars file
+        sed -i "s/^var PWOS_VERSION = [0-9]*;/var PWOS_VERSION = ${TS};/" ${VARS_FILE}
+        sed -i "s/^var PWOS_DATE = '[0-9_]*';/var PWOS_DATE = '${DATE}';/" ${VARS_FILE}
+    fi
+
+    echo "Building resources…"
+    bin/gulp
+}
+
+
+if [[ $1 =~ ^[0-9]+$ ]]; then
+    TS=$1
+    DATE=$(date -d @${TS} +'%Y%m%d_%H%M%S')
+
+elif [[ -n $1 ]]; then
+    echo "Invalid timestamp passed"
+    exit 1
+fi
+
+
+build_db_file
+build_resources "${TS}" "${DATE}"
