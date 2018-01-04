@@ -22,6 +22,7 @@ const TASKS   = [];
 const JS_FILES = {
     'index': [
         SRC + 'js/vars.js',
+        SRC + 'js/scrollmonitor.js',
         SRC + 'js/database.js',
         SRC + 'js/pwos.js',
     ],

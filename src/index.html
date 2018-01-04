@@ -17,7 +17,7 @@
         <main class="pt-5 pb-5">
             <div id="content" class="container">
                 <div class="jumbotron pt-4 pb-2">
-                    <h1 class="display-5"><i class="fa fa-2x fa-hashtag"></i> Passwords of Shame</h1>
+                    <h1 class="display-5"><i class="fas fa-2x fa-hashtag"></i> Passwords of Shame</h1>
 
                     <p class="lead mt-3">This is a collection of sites and products enforcing insecure credentials.</p>
 
@@ -32,8 +32,8 @@
                 </div>
 
                 <p class="small mb-4 pr-1 text-right">
-                    <i class="fa fa-fw fa-times text-danger"></i> not allowed,
-                    <i class="fa fa-fw fa-times text-muted"></i> initially unused but allowed
+                    <i class="fas fa-fw fa-times text-danger"></i> not allowed,
+                    <i class="fas fa-fw fa-times text-muted"></i> initially unused but allowed
                 </p>
 
                 <div class="table-responsive-sm">
@@ -53,7 +53,7 @@
                                 <th scope="col">
                                     <div class="row">
                                         <div class="col-sm-2 col-auto col-xl-1">
-                                            <i class="fa fa-fw fa-globe"></i>
+                                            <i class="fas fa-fw fa-globe"></i>
                                         </div>
                                         <div class="col-sm-10 col-auto col-xl-8">
                                             <input data-filter="url" type="search" class="filter form-control form-control-sm" placeholder="filter">
@@ -61,14 +61,14 @@
                                     </div>
                                 </th>
 
-                                <th scope="col" class="attr"><i class="fa fa-fw fa-step-backward" title="min length"></i></th>
-                                <th scope="col" class="attr"><i class="fa fa-fw fa-step-forward" title="max length"></i></th>
+                                <th scope="col" class="attr"><i class="fas fa-fw fa-step-backward" title="min length"></i></th>
+                                <th scope="col" class="attr"><i class="fas fa-fw fa-step-forward" title="max length"></i></th>
                                 <th scope="col" class="attr"><span title="alphabetical letters">A–Z</span></th>
                                 <th scope="col" class="attr"><span title="digits">0–9</span></th>
                                 <th scope="col" class="attr"><span title="spaces">__</span></th>
                                 <th scope="col" class="attr"><span title="special characters">!#?</span></th>
                                 <th scope="col" class="attr"><span title="case sensitive">Aa</span></th>
-                                <th scope="col" class="attr"><i class="fa fa-fw fa-sync-alt" title="changeable"></i></th>
+                                <th scope="col" class="attr"><i class="fas fa-fw fa-sync-alt" title="changeable"></i></th>
                             </tr>
                         </thead>
 
@@ -80,34 +80,50 @@
                                 <td class="attr min"></td>
                                 <td class="attr max"></td>
                                 <td class="attr alpha">
-                                    <i class="fa fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fa fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
+                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr digit">
-                                    <i class="fa fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fa fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
+                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr space">
-                                    <i class="fa fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fa fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
+                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr special">
-                                    <i class="fa fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fa fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
+                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr case">
-                                    <i class="fa fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fa fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
+                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr changeable">
-                                    <i class="fa fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fa fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
+                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                             </tr>
                         </tbody>
 
                         <tbody id="sites-list"></tbody>
                     </table>
+                </div>
+
+                <div id="lazy-loading-anchor">
+                    <div id="lazy-loading-info" class="alert alert-light invisible" role="alert">
+                        More entries available. Scroll to load.
+                    </div>
+                    <div id="lazy-loading-spinner" class="alert alert-light" role="alert">
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center pr-3">
+                                <i class="fas fa-spinner fa-pulse fa-2x"></i>
+                            </div>
+                            <div class="align-self-center">
+                                Loading entries…
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

@@ -1,4 +1,6 @@
 var PWoS = (function ($) {
+    const MAX_RESULTS = 30;
+
     const MIN_LEN_BAD = 5;
     const MAX_LEN_BAD = 16;
 
@@ -13,8 +15,17 @@ var PWoS = (function ($) {
     const $filters  = $('.filter');
 
     let db;
+    let scrollMon;
+    let filters;
+    let results;
+    let $lazyInfo;
+    let $lazySpinner;
 
 
+
+    /**
+     * Adds a row to the table.
+     */
     function addRow(data) {
         let $row = $template.clone().appendTo($list);;
 
@@ -37,6 +48,10 @@ var PWoS = (function ($) {
         }
     }
 
+
+    /**
+     * Filters the database using a filter input field.
+     */
     function filter($input) {
         let attr = $input.data('filter');
         let val  = $input.val();
@@ -45,25 +60,55 @@ var PWoS = (function ($) {
             return;
         }
 
-        let filter   = {};
-        filter[attr] = val;
+        filters       = {};
+        filters[attr] = val;
 
-        showResults(filter);
+        getResults(filters);
     }
 
-    function showResults(filter) {
-        filter = filter || null;
-
-        let result = db.filter(filter);
-        let site   = result.next();
+    /**
+     * Clears the table and fills it, filtering results (if passed).
+     */
+    function getResults(filter) {
+        filter  = filter || null;
+        results = db.filter(filter);
 
         $list.empty();
-        while (site && !site.done && site.value) {
+        addResults(results);
+    }
+
+    /**
+     * Appends results to the current table
+     */
+    function addResults() {
+        if (!results) {
+            return;
+        }
+
+        let site   = results.next();
+        let count  = 0;
+
+        while (site && !site.done && site.value && count < MAX_RESULTS) {
             addRow(site.value);
-            site = result.next();
+            site = results.next();
+            count++;
+        }
+
+        $lazySpinner.addClass('hidden');
+        $lazyInfo.toggleClass('invisible', site.done);
+        $lazyInfo.toggleClass('invisible', site.done);
+
+        if (!site.done) {
+            scrollMon.start();
+        } else {
+            scrollMon.stop();
         }
     }
 
+
+    /**
+     * Initial setup (loading, table population).
+     */
     function init() {
         $('#last-update').text(new Date(PWOS_VERSION * 1000));
 
@@ -73,17 +118,33 @@ var PWoS = (function ($) {
             }
         });
 
+        $(window).on('scrolled-to', function (event, $anchor) {
+            $lazySpinner.removeClass('hidden');
+            setTimeout(function () {
+                addResults();
+            }, 10)
+        });
+
+
+        $lazyInfo    = $('#lazy-loading-info');
+        $lazySpinner = $('#lazy-loading-spinner');
+        scrollMon    = new ScrollMonitor($('#lazy-loading-anchor'));
+
+
         PWoSDb
             .load(DB_URL)
             .done(function (resultDb) {
                 db = resultDb;
-                showResults();
+                getResults();
             })
             .fail(function () {
+                $lazySpinner.addClass('hidden');
                 $('#content').append($('<p>').addClass('alert alert-danger').text('Failed to load database'));
             });
     }
 
+
+    // public interface
     return {
         init: init,
 
