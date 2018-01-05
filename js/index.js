@@ -1,5 +1,5 @@
-var PWOS_VERSION = 1515081014;
-var PWOS_DATE = '20180104_165014';
+var PWOS_VERSION = 1515196728;
+var PWOS_DATE = '20180106_005848';
 
 if (typeof window === 'undefined') {
     exports.PWOS_VERSION = PWOS_VERSION;
@@ -132,8 +132,9 @@ var PWoSDb = (function () {
 var PWoS = (function ($) {
     const MAX_RESULTS = 30;
 
-    const MIN_LEN_BAD = 5;
-    const MAX_LEN_BAD = 16;
+    const MIN_LEN_BAD     = 5;
+    const MAX_LEN_BAD     = 16;
+    const SHAME_SCORE_BAD = 3;
 
     const DB_URL = 'data/db.json?v=' + PWOS_VERSION;
 
@@ -158,25 +159,58 @@ var PWoS = (function ($) {
      * Adds a row to the table.
      */
     function addRow(data) {
-        let $row = $template.clone().appendTo($list);;
+        let $row       = $template.clone().appendTo($list);
+        let shameScore = 0;
 
         $row.find('.title').text(data.title);
-        $row.find('a.url')
-            .text(data.url.replace(/^https?\:\/\//i, ''))
-            .attr('href', data.url);
 
-        $row.find('.attr.min').text(data.pw.min).toggleClass('text-danger text-bold', data.pw.min <= MIN_LEN_BAD);
-        $row.find('.attr.max').text(data.pw.max).toggleClass('text-danger text-bold', data.pw.max <= MAX_LEN_BAD);
+        $row.find('a.url')
+            .attr('href', data.url)
+            .find('.url-text')
+            .text(data.url.replace(/^https?\:\/\//i, ''));
+
+
+        $row.find('.attr.min')
+            .text(data.pw.min)
+            .toggleClass('text-danger', data.pw.min <= MIN_LEN_BAD);
+
+        $row.find('.attr.max')
+            .text(data.pw.max)
+            .toggleClass('text-danger', data.pw.max <= MAX_LEN_BAD);
+
+        if (data.pw.min <= MIN_LEN_BAD) {
+            shameScore++;
+        }
+
+        if (data.pw.max <= MAX_LEN_BAD) {
+            shameScore++;
+        }
+
 
         for (let attr of ATTRS) {
             let $col = $row.find('.attr.' + attr);
+            let $attr;
 
             if (!data.pw[attr]) {
-                $col.find('i.attr-false').removeClass('hidden');
+                $attr = $col.find('i.attr-false');
             } else {
-                $col.find('i.attr-' + data.pw[attr]).removeClass('hidden');
+                $attr = $col.find('i.attr-' + data.pw[attr]);
+            }
+
+            if ($attr && $attr.length) {
+                $attr.removeClass('hidden');
+                shameScore++;
             }
         }
+
+        if (data.scoreplus) {
+            shameScore += data.scoreplus;
+        }
+
+        // TODO: add comments in abbr
+        $row.find('.attr-score')
+            .text(shameScore)
+            .toggleClass('text-danger', shameScore >= SHAME_SCORE_BAD);
     }
 
 
