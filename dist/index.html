@@ -10,20 +10,23 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
         <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
 
-        <link href="css/index.min.css?v=20180104_165014" rel="stylesheet">
+        <link href="css/index.min.css?v=20180106_005848" rel="stylesheet">
     </head>
 
     <body>
-        <main class="pt-5 pb-5">
+        <main class="pt-1 pt-sm-5 pb-5">
             <div id="content" class="container">
                 <div class="jumbotron pt-4 pb-2">
-                    <h1 class="display-5"><i class="fas fa-2x fa-hashtag"></i> Passwords of Shame</h1>
+                    <h1 class="display-5"><i class="fas fa-2x fa-hashtag d-none d-sm-inline-block"></i> Passwords of Shame</h1>
 
-                    <p class="lead mt-3">This is a collection of sites and products enforcing insecure credentials.</p>
+                    <p class="lead mt-3 d-none d-sm-block">This is a collection of sites and products enforcing insecure credentials.</p>
 
                     <p>
+                        <i class="fab fa-twitter"></i>
                         <a href="https://twitter.com/hashtag/pwos" target="_blank">#pwos</a>
                         <a href="https://twitter.com/hashtag/passwordsOfShame" target="_blank">#passwordsOfShame</a>
+                        <a href="https://twitter.com/hashtag/passwordTooStrong" target="_blank">#passwordTooStrong</a>
+                        <a href="https://twitter.com/PWTooStrong" target="_blank">@PWTooStrong</a>
                     </p>
 
                     <hr>
@@ -32,8 +35,8 @@
                 </div>
 
                 <p class="small mb-4 pr-1 text-right">
-                    <i class="fas fa-fw fa-times text-danger"></i> not allowed,
-                    <i class="fas fa-fw fa-times text-muted"></i> initially unused but allowed
+                    <i class="far fa-fw fa-times-circle text-danger"></i>&nbsp;not allowed,
+                    <i class="far fa-fw fa-dot-circle text-muted"></i>&nbsp;initially unused but allowed
                 </p>
 
                 <div class="table-responsive-sm">
@@ -41,21 +44,21 @@
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-auto col-xl-1">
+                                    <div class="row no-gutters align-items-end">
+                                        <div class="col-md col-md-auto mr-md-2">
                                             Site
                                         </div>
-                                        <div class="col-sm-10 col-auto col-xl-8">
+                                        <div class="col col-xl-7">
                                             <input data-filter="title" type="search" class="filter form-control form-control-sm" placeholder="filter">
                                         </div>
                                     </div>
                                 </th>
                                 <th scope="col">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-auto col-xl-1">
+                                    <div class="row no-gutters align-items-end">
+                                        <div class="col-md col-md-auto mr-md-2">
                                             <i class="fas fa-fw fa-globe"></i>
                                         </div>
-                                        <div class="col-sm-10 col-auto col-xl-8">
+                                        <div class="col col-xl-7 d-none d-md-block">
                                             <input data-filter="url" type="search" class="filter form-control form-control-sm" placeholder="filter">
                                         </div>
                                     </div>
@@ -69,39 +72,53 @@
                                 <th scope="col" class="attr"><span title="special characters">!#?</span></th>
                                 <th scope="col" class="attr"><span title="case sensitive">Aa</span></th>
                                 <th scope="col" class="attr"><i class="fas fa-fw fa-sync-alt" title="changeable"></i></th>
+
+                                <th scope="col" class="attr"><i class="fas fa-crosshairs" title="shame score"></i></th>
                             </tr>
                         </thead>
 
                         <tbody id="site-template">
                             <tr>
                                 <td class="title"></td>
-                                <td><a href="#" class="url text-truncate" target="_blank"></a></td>
+                                <td>
+                                    <a href="#" class="url d-none d-md-block text-truncate" target="_blank">
+                                        <span class="url-text"></span>
+                                    </a>
+                                    <a href="#" class="url d-inline d-md-none" target="_blank">
+                                        <i class="fas fa-fw fa-external-link-alt"></i>
+                                    </a>
+                                </td>
 
                                 <td class="attr min"></td>
                                 <td class="attr max"></td>
+
                                 <td class="attr alpha">
-                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
+                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr digit">
-                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
+                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr space">
-                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
+                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr special">
-                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
+                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr case">
-                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
+                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
                                 </td>
                                 <td class="attr changeable">
-                                    <i class="fas fa-fw fa-times text-danger attr-false hidden"></i>
-                                    <i class="fas fa-fw fa-times text-muted attr-onchange hidden" title="when changing"></i>
+                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
+                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
+                                </td>
+
+                                <td class="pl-3">
+                                    <span class="text-bold attr-score">0</span><small>&nbsp;/&nbsp;10</small>
                                 </td>
                             </tr>
                         </tbody>
@@ -137,7 +154,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
-        <script src="js/index.min.js?v=20180104_165014"></script>
+        <script src="js/index.min.js?v=20180106_005848"></script>
         <script>PWoS.init();</script>
     </body>
 </html>
