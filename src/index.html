@@ -33,8 +33,8 @@
                 </div>
 
                 <p class="small mb-4 pr-1 text-right">
-                    <i class="far fa-fw fa-times-circle text-danger"></i> not allowed,
-                    <i class="far fa-fw fa-dot-circle text-muted"></i> initially unused but allowed
+                    <i class="far fa-fw fa-times-circle text-danger"></i>&nbsp;not allowed,
+                    <i class="far fa-fw fa-dot-circle text-muted"></i>&nbsp;initially unused but allowed
                 </p>
 
                 <div class="table-responsive-sm">
@@ -42,21 +42,21 @@
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-auto col-xl-1">
+                                    <div class="row no-gutters align-items-end">
+                                        <div class="col-md col-md-auto mr-md-2">
                                             Site
                                         </div>
-                                        <div class="col-sm-10 col-auto col-xl-8">
+                                        <div class="col col-xl-7">
                                             <input data-filter="title" type="search" class="filter form-control form-control-sm" placeholder="filter">
                                         </div>
                                     </div>
                                 </th>
                                 <th scope="col">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-auto col-xl-1">
+                                    <div class="row no-gutters align-items-end">
+                                        <div class="col-md col-md-auto mr-md-2">
                                             <i class="fas fa-fw fa-globe"></i>
                                         </div>
-                                        <div class="col-sm-10 col-auto col-xl-8">
+                                        <div class="col col-xl-7">
                                             <input data-filter="url" type="search" class="filter form-control form-control-sm" placeholder="filter">
                                         </div>
                                     </div>
@@ -70,6 +70,8 @@
                                 <th scope="col" class="attr"><span title="special characters">!#?</span></th>
                                 <th scope="col" class="attr"><span title="case sensitive">Aa</span></th>
                                 <th scope="col" class="attr"><i class="fas fa-fw fa-sync-alt" title="changeable"></i></th>
+
+                                <th scope="col" class="attr"><i class="fas fa-crosshairs" title="shame score"></i></th>
                             </tr>
                         </thead>
 
@@ -80,6 +82,7 @@
 
                                 <td class="attr min"></td>
                                 <td class="attr max"></td>
+
                                 <td class="attr alpha">
                                     <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
                                     <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
@@ -103,6 +106,10 @@
                                 <td class="attr changeable">
                                     <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
                                     <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden" title="when changing"></i>
+                                </td>
+
+                                <td class="pl-3">
+                                    <span class="text-bold attr-score">0</span><small>&nbsp;/&nbsp;10</small>
                                 </td>
                             </tr>
                         </tbody>
