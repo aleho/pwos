@@ -32,9 +32,11 @@ var PWoS = (function ($) {
         let shameScore = 0;
 
         $row.find('.title').text(data.title);
+
         $row.find('a.url')
-            .text(data.url.replace(/^https?\:\/\//i, ''))
-            .attr('href', data.url);
+            .attr('href', data.url)
+            .find('.url-text')
+            .text(data.url.replace(/^https?\:\/\//i, ''));
 
 
         $row.find('.attr.min')
