@@ -24,6 +24,7 @@ const JS_FILES = {
         SRC + 'js/vars.js',
         SRC + 'js/scrollmonitor.js',
         SRC + 'js/database.js',
+        SRC + 'js/table.js',
         SRC + 'js/pwos.js',
     ],
 };
