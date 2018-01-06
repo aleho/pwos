@@ -3,7 +3,7 @@
 This is a project collecting and shaming sites and products enforcing insecure
 credentials.
 
-Got to [the GitHub page](https://aleho.github.io/pwos/ "Passwords of Shame") to
+Go to [the GitHub page](https://aleho.github.io/pwos/ "Passwords of Shame") to
 see the latest release in action.
 
 
