@@ -7,6 +7,8 @@
 body {
   background: #33393b;
   color: #ccc; }
+  body.hastouch [title] {
+    text-decoration: underline dotted; }
 
 main {
   background: white;
