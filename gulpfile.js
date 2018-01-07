@@ -23,6 +23,7 @@ const JS_FILES = {
     'index': [
         SRC + 'js/vars.js',
         SRC + 'js/scrollmonitor.js',
+        SRC + 'js/titletouch.js',
         SRC + 'js/database.js',
         SRC + 'js/table.js',
         SRC + 'js/pwos.js',
