@@ -9,6 +9,7 @@ DIST="dist"
 function commit_push_dist() {
     echo "Preparing and pushing release v${DATE}…"
 
+    git add yarn.lock
     git add ${DIST}/ ${VARS_FILE}
     git commit ${DIST}/ ${VARS_FILE} -m "Release v${DATE}"
     git tag -s v${DATE} -m "Release v${DATE}"
