@@ -33,6 +33,7 @@ const JS_FILES = {
 
 const CSS_FILES = {
     'index': [
+        'node_modules/animate.css/animate.css',
         SRC + 'sass/index.sass',
     ],
 };
