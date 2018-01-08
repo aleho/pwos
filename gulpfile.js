@@ -2,6 +2,7 @@
 'use strict';
 
 const concat     = require('gulp-concat');
+const exec       = require('child_process').exec;
 const gulp       = require('gulp');
 const gulpIf     = require('gulp-if');
 const log        = require('fancy-log');
@@ -13,12 +14,13 @@ const uglifyCss  = require('gulp-uglifycss');
 const vars       = require('./src/js/vars.js');
 
 
-const SRC     = 'src/';
-const DIST    = 'dist/';
-const JS_OUT  = DIST + 'js/';
-const CSS_OUT = DIST + 'css/';
-const TASKS   = [];
-const WATCHES = {};
+const SRC      = 'src/';
+const DIST     = 'dist/';
+const JS_OUT   = DIST + 'js/';
+const CSS_OUT  = DIST + 'css/';
+const DATA_OUT = DIST + 'data/';
+const TASKS    = [];
+const WATCHES  = {};
 
 const JS_FILES = {
     'index': [
@@ -42,7 +44,11 @@ const HTML_FILES = {
     'index': [
         SRC + 'index.html',
     ],
-}
+};
+
+const JSON_FILES = {
+    'db': SRC + 'data/db.json',
+};
 
 
 const OPTIONS = {
@@ -55,7 +61,7 @@ if (process.argv.length > 2 && process.argv[2] == '--watch') {
 
 
 /**
- *
+ * Add a task.
  */
 function addTasks(type, files, build, minify)
 {
@@ -70,14 +76,14 @@ function addTasks(type, files, build, minify)
         let tasknameMin   = taskname + ' [minify]';
         let tasks         = [tasknameBuild];
 
-        gulp.task(tasknameBuild, function () {
-            return build(filename, filesGroup, group);
+        gulp.task(tasknameBuild, function (done) {
+            return build(filename, filesGroup, done);
         });
 
         if (doMinify) {
             tasks.push(tasknameMin);
-            gulp.task(tasknameMin, function () {
-                return minify(filename, filenameMin, group);
+            gulp.task(tasknameMin, function (done) {
+                return minify(filename, filenameMin, done);
             });
         }
 
@@ -141,6 +147,23 @@ addTasks('html', HTML_FILES,
             .pipe(gulp.dest(DIST));
     }
 );
+
+addTasks('json', JSON_FILES,
+    function (outname, source, done) {
+        let out = DATA_OUT + outname;
+
+        // build compact json file
+        exec("jq -c '.' " + source + ' > ' + out, function (err, stdout, stderr) {
+            if (err) {
+                log.error('Error building data file', outname);
+                log.info(err);
+            }
+
+            done();
+        });
+    }
+);
+
 
 
 let gulpSeries = ['build'];

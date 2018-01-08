@@ -10,9 +10,6 @@ function build_db_file() {
 
     # pretty-fy database source file
     jq 'sort_by(.title)' ${DB_IN} > ${DB_IN}.tmp && mv ${DB_IN}.tmp ${DB_IN}
-
-    # compact built file
-    jq -c '.' ${DB_IN} > ${DB_OUT}
 }
 
 function build_resources() {
