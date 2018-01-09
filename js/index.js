@@ -1,5 +1,5 @@
-var PWOS_VERSION = 1515348207;
-var PWOS_DATE = '20180107_190327';
+var PWOS_VERSION = 1515523392;
+var PWOS_DATE = '20180109_194312';
 
 if (typeof window === 'undefined') {
     exports.PWOS_VERSION = PWOS_VERSION;
@@ -209,8 +209,8 @@ Table.prototype.empty = function () {
 /**
  * Adds a row to the table.
  */
-Table.prototype.addRow = function (data) {
-    let $row       = this.$rowTemplate.clone().appendTo(this.$element);
+Table.prototype.addRow = function (data, delayAnimate) {
+    let $row       = this.$rowTemplate.clone();
     let shameScore = 0;
 
     $row.find('.title').text(data.title);
@@ -262,6 +262,18 @@ Table.prototype.addRow = function (data) {
     $row.find('.attr-score')
         .text(shameScore)
         .toggleClass('text-danger', shameScore >= Table.SHAME_SCORE_BAD);
+
+
+    if (delayAnimate > 0 || delayAnimate === 0) {
+        setTimeout(function () {
+            $row
+                .addClass('animated fadeInRight')
+                .appendTo(this.$element);
+        }.bind(this), delayAnimate);
+
+    } else {
+        $row.appendTo(this.$element);
+    }
 };
 
 var PWoS = (function ($) {
@@ -320,7 +332,7 @@ var PWoS = (function ($) {
         let count  = 0;
 
         while (site && !site.done && site.value && count < MAX_RESULTS) {
-            table.addRow(site.value);
+            table.addRow(site.value, count * 20);
             site = results.next();
             count++;
         }
