@@ -54,7 +54,7 @@ var PWoS = (function ($) {
         let count  = 0;
 
         while (site && !site.done && site.value && count < MAX_RESULTS) {
-            table.addRow(site.value);
+            table.addRow(site.value, count * 20);
             site = results.next();
             count++;
         }

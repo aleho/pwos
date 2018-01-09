@@ -29,8 +29,8 @@ Table.prototype.empty = function () {
 /**
  * Adds a row to the table.
  */
-Table.prototype.addRow = function (data) {
-    let $row       = this.$rowTemplate.clone().appendTo(this.$element);
+Table.prototype.addRow = function (data, delayAnimate) {
+    let $row       = this.$rowTemplate.clone();
     let shameScore = 0;
 
     $row.find('.title').text(data.title);
@@ -82,4 +82,16 @@ Table.prototype.addRow = function (data) {
     $row.find('.attr-score')
         .text(shameScore)
         .toggleClass('text-danger', shameScore >= Table.SHAME_SCORE_BAD);
+
+
+    if (delayAnimate > 0 || delayAnimate === 0) {
+        setTimeout(function () {
+            $row
+                .addClass('animated fadeInRight')
+                .appendTo(this.$element);
+        }.bind(this), delayAnimate);
+
+    } else {
+        $row.appendTo(this.$element);
+    }
 };

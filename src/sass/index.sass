@@ -20,12 +20,21 @@
     font-weight: bold
 
 .hidden
-	display: none
+    display: none
+
+
+@for $i from 1 through 4
+    .delay#{$i}
+        $delay: 300 * $i
+        -moz-animation-delay: #{$delay}ms
+        -webkit-animation-delay: #{$delay}ms
+        animation-delay: #{$delay}ms
 
 
 body
     background: #33393b
     color: #ccc
+    font-family: "Roboto", sans-serif;
 
     &.hastouch
         [title]
