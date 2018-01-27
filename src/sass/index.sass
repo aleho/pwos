@@ -32,40 +32,22 @@
 
 
 body
-    background: #33393b
-    color: #ccc
     font-family: "Roboto", sans-serif;
 
-    &.hastouch
-        [title]
-            text-decoration: underline dotted
 
-main
-    background: white
-    color: #212529
-    min-height: 40rem
+tr
+	th
+	    &.attr
+	        > *
+	            display: inline-block
+	            cursor: help
 
-footer
-    font-size: 85%
+	    input.form-control-sm
+	        padding: .1rem .5rem
 
-
-th
-    &.attr
-        > *
-            display: inline-block
-            cursor: help
-
-    input.form-control-sm
-        padding: .1rem .5rem
-
-th, td
-    &.attr
-        text-align: center
+	th, td
+	    &.attr
+	        text-align: center
 
 
 @include truncate-text('td a.url.text-truncate')
-
-
-#site-template
-    tr
-        display: none

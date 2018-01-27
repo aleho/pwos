@@ -18,7 +18,8 @@
       "digit": "onchange",
       "special": "onchange",
       "case": "onchange",
-      "changeable": true
+      "changeable": true,
+      "2fa": true
     }
   },
   {

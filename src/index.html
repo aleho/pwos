@@ -7,7 +7,7 @@
 
         <title>Passwords of Shame</title>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
@@ -37,132 +37,58 @@
                     <div class="animated fadeIn delay3">
                         <hr>
                         <p>
-                            <small>DISCLAIMER: The data shown here isn't necessarily up to date. Use the <a href="https://github.com/aleho/pwos">GitHub repository</a> to request changes.</small>
+                            <small>
+                                DISCLAIMER: The data shown here isn't necessarily up to date. Use the <a href="https://github.com/aleho/pwos">GitHub repository</a> to request changes.
+                                (Last update: <span id="last-update">2018</span>)
+                            </small>
                         </p>
                     </div>
                 </div>
+
+                <dl class="row small mb-4 pr-1 d-md-none">
+                    <dt class="col-8 col-sm-9 text-right"><i class="fas fa-fw fa-step-backward"></i></dt>
+                    <dd class="col-4 col-sm-3">min length</dd>
+
+                    <dt class="col-8 col-sm-9 text-right"><i class="fas fa-fw fa-step-forward"></i></dt>
+                    <dd class="col-4 col-sm-3">max length</dd>
+
+                    <dt class="col-8 col-sm-9 text-right">A–Z</dt>
+                    <dd class="col-4 col-sm-3">letters</dd>
+
+                    <dt class="col-8 col-sm-9 text-right">0–9</dt>
+                    <dd class="col-4 col-sm-3">digits</dd>
+
+                    <dt class="col-8 col-sm-9 text-right">__</dt>
+                    <dd class="col-4 col-sm-3">spaces</dd>
+
+                    <dt class="col-8 col-sm-9 text-right">!#?</dt>
+                    <dd class="col-4 col-sm-3">special characters</dd>
+
+                    <dt class="col-8 col-sm-9 text-right">Aa</dt>
+                    <dd class="col-4 col-sm-3">case sensitive</dd>
+
+                    <dt class="col-8 col-sm-9 text-right"><i class="fas fa-fw fa-pencil-alt"></i></dt>
+                    <dd class="col-4 col-sm-3">changeable</dd>
+
+                    <dt class="col-8 col-sm-9 text-right">2fa</dt>
+                    <dd class="col-4 col-sm-3">2-factor</dd>
+
+                    <dt class="col-8 col-sm-9 text-right"><i class="fas fa-crosshairs"></i></dt>
+                    <dd class="col-4 col-sm-3">shame score</dd>
+                </dl>
 
                 <p class="small mb-4 pr-1 text-right">
                     <i class="far fa-fw fa-times-circle text-danger"></i>&nbsp;not allowed,
                     <i class="far fa-fw fa-dot-circle text-muted"></i>&nbsp;initially unused but allowed
                 </p>
 
-                <div class="table-responsive-sm">
-                    <table class="table table-striped table-hover table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    <div class="row no-gutters align-items-end">
-                                        <div class="col-md col-md-auto mr-md-2">
-                                            Site
-                                        </div>
-                                        <div class="col col-xl-7">
-                                            <input data-filter="title" type="search" class="filter form-control form-control-sm" placeholder="filter">
-                                        </div>
-                                    </div>
-                                </th>
-                                <th scope="col">
-                                    <div class="row no-gutters align-items-end">
-                                        <div class="col-md col-md-auto mr-md-2">
-                                            <i class="fas fa-fw fa-globe"></i>
-                                        </div>
-                                        <div class="col col-xl-7 d-none d-md-block">
-                                            <input data-filter="url" type="search" class="filter form-control form-control-sm" placeholder="filter">
-                                        </div>
-                                    </div>
-                                </th>
-
-                                <th scope="col" class="attr"><i class="fas fa-fw fa-step-backward" title="min length"></i></th>
-                                <th scope="col" class="attr"><i class="fas fa-fw fa-step-forward" title="max length"></i></th>
-                                <th scope="col" class="attr"><span title="alphabetical letters">A–Z</span></th>
-                                <th scope="col" class="attr"><span title="digits">0–9</span></th>
-                                <th scope="col" class="attr"><span title="spaces">__</span></th>
-                                <th scope="col" class="attr"><span title="special characters">!#?</span></th>
-                                <th scope="col" class="attr"><span title="case sensitive">Aa</span></th>
-                                <th scope="col" class="attr"><i class="fas fa-fw fa-edit" title="changeable"></i></th>
-
-                                <th scope="col" class="attr"><i class="fas fa-crosshairs" title="shame score"></i></th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="site-template">
-                            <tr>
-                                <td class="title"></td>
-                                <td>
-                                    <a href="#" class="url d-none d-md-block text-truncate" target="_blank">
-                                        <span class="url-text"></span>
-                                    </a>
-                                    <a href="#" class="url d-inline d-md-none" target="_blank">
-                                        <i class="fas fa-fw fa-external-link-alt"></i>
-                                    </a>
-                                </td>
-
-                                <td class="attr min"></td>
-                                <td class="attr max"></td>
-
-                                <td class="attr alpha">
-                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
-                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden"></i>
-                                </td>
-                                <td class="attr digit">
-                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
-                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden"></i>
-                                </td>
-                                <td class="attr space">
-                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
-                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden"></i>
-                                </td>
-                                <td class="attr special">
-                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
-                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden"></i>
-                                </td>
-                                <td class="attr case">
-                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
-                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden"></i>
-                                </td>
-                                <td class="attr changeable">
-                                    <i class="far fa-fw fa-times-circle text-danger attr-false hidden"></i>
-                                    <i class="far fa-fw fa-dot-circle text-muted attr-onchange hidden"></i>
-                                </td>
-
-                                <td class="pl-3">
-                                    <span class="text-bold attr-score">0</span><small>&nbsp;/&nbsp;10</small>
-                                </td>
-                            </tr>
-                        </tbody>
-
-                        <tbody id="sites-list"></tbody>
-                    </table>
-                </div>
-
-                <div id="lazy-loading-anchor">
-                    <div id="lazy-loading-info" class="alert alert-light invisible" role="alert">
-                        More entries available. Scroll to load.
-                    </div>
-                    <div id="lazy-loading-spinner" class="alert alert-light" role="alert">
-                        <div class="d-flex flex-row">
-                            <div class="align-self-center pr-3">
-                                <i class="fas fa-spinner fa-pulse fa-2x"></i>
-                            </div>
-                            <div class="align-self-center">
-                                Loading entries…
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="app"></div>
             </div>
         </main>
 
-        <footer class="p-5 text-center">
-            Last update: <span id="last-update">2018</span>
-        </footer>
-
-
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
 
         <script src="js/index.js"></script>
-        <script>PWoS.init();</script>
     </body>
 </html>
