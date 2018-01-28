@@ -33,5 +33,18 @@
       "case": true,
       "changeable": true
     }
+  },
+  {
+    "title": "Ubisoft Uplay",
+    "url": "https://uplay.ubi.com/",
+    "pw": {
+      "min": "8",
+      "max": "16",
+      "alpha": true,
+      "digit": true,
+      "case": true,
+      "changeable": true,
+      "2fa": true
+    }
   }
 ]
