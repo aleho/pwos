@@ -2,15 +2,15 @@
 
 TS=$(date +'%s')
 DATE=$(date +'%Y%m%d_%H%M%S')
-VARS_FILE="src/js/vars.js"
 DIST="dist"
+TO_COMMIT="${DIST}/ yarn.lock src/data/db.json src/js/vars.js"
 
 
 function commit_push_dist() {
     echo "Preparing and pushing release v${DATE}…"
 
-    git add yarn.lock ${DIST}/ ${VARS_FILE}
-    git commit yarn.lock ${DIST}/ ${VARS_FILE} -m "Release v${DATE}"
+    git add ${TO_COMMIT}
+    git commit ${TO_COMMIT} -m "Release v${DATE}"
     git tag -s v${DATE} -m "Release v${DATE}"
     git push origin --tags
     git subtree push --prefix ${DIST} origin gh-pages

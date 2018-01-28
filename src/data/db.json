@@ -9,6 +9,19 @@
     }
   },
   {
+    "title": "Ubisoft Uplay",
+    "url": "https://uplay.ubi.com/",
+    "pw": {
+      "min": "8",
+      "max": "16",
+      "alpha": true,
+      "digit": true,
+      "case": true,
+      "changeable": true,
+      "2fa": true
+    }
+  },
+  {
     "title": "UniCredit Bank Austria",
     "url": "https://online.bankaustria.at/wps/portal/userlogin",
     "pw": {
@@ -32,19 +45,6 @@
       "special": true,
       "case": true,
       "changeable": true
-    }
-  },
-  {
-    "title": "Ubisoft Uplay",
-    "url": "https://uplay.ubi.com/",
-    "pw": {
-      "min": "8",
-      "max": "16",
-      "alpha": true,
-      "digit": true,
-      "case": true,
-      "changeable": true,
-      "2fa": true
     }
   }
 ]
