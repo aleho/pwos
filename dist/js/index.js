@@ -7483,107 +7483,6 @@ module.exports = _dereq_(22);
 
 'use strict';
 
-function _AwaitValue(value) {
-  this.wrapped = value;
-}
-
-function _AsyncGenerator(gen) {
-  var front, back;
-
-  function send(key, arg) {
-    return new Promise(function (resolve, reject) {
-      var request = {
-        key: key,
-        arg: arg,
-        resolve: resolve,
-        reject: reject,
-        next: null
-      };
-
-      if (back) {
-        back = back.next = request;
-      } else {
-        front = back = request;
-        resume(key, arg);
-      }
-    });
-  }
-
-  function resume(key, arg) {
-    try {
-      var result = gen[key](arg);
-      var value = result.value;
-      var wrappedAwait = value instanceof _AwaitValue;
-      Promise.resolve(wrappedAwait ? value.wrapped : value).then(function (arg) {
-        if (wrappedAwait) {
-          resume("next", arg);
-          return;
-        }
-
-        settle(result.done ? "return" : "normal", arg);
-      }, function (err) {
-        resume("throw", err);
-      });
-    } catch (err) {
-      settle("throw", err);
-    }
-  }
-
-  function settle(type, value) {
-    switch (type) {
-      case "return":
-        front.resolve({
-          value: value,
-          done: true
-        });
-        break;
-
-      case "throw":
-        front.reject(value);
-        break;
-
-      default:
-        front.resolve({
-          value: value,
-          done: false
-        });
-        break;
-    }
-
-    front = front.next;
-
-    if (front) {
-      resume(front.key, front.arg);
-    } else {
-      back = null;
-    }
-  }
-
-  this._invoke = send;
-
-  if (typeof gen.return !== "function") {
-    this.return = undefined;
-  }
-}
-
-if (typeof Symbol === "function" && Symbol.asyncIterator) {
-  _AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-    return this;
-  };
-}
-
-_AsyncGenerator.prototype.next = function (arg) {
-  return this._invoke("next", arg);
-};
-
-_AsyncGenerator.prototype.throw = function (arg) {
-  return this._invoke("throw", arg);
-};
-
-_AsyncGenerator.prototype.return = function (arg) {
-  return this._invoke("return", arg);
-};
-
 var PWOS_VERSION = 1517175060;
 var PWOS_DATE = '20180128_223100';
 
@@ -7758,11 +7657,12 @@ function _possibleConstructorReturn(self, call) {
  */
 var Alert =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Alert, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Alert, _React$PureComponent);
 
   function Alert() {
     _classCallCheck(this, Alert);
+
     return _possibleConstructorReturn(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).apply(this, arguments));
   }
 
@@ -7779,19 +7679,21 @@ function (_React$Component) {
       }, "Failed to load database");
     }
   }]);
+
   return Alert;
-}(React.Component);
+}(React.PureComponent);
 
 /**
  * Simple date component.
  */
 var LastUpdate =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(LastUpdate, _React$Component);
+function (_React$PureComponent) {
+  _inherits(LastUpdate, _React$PureComponent);
 
   function LastUpdate() {
     _classCallCheck(this, LastUpdate);
+
     return _possibleConstructorReturn(this, (LastUpdate.__proto__ || Object.getPrototypeOf(LastUpdate)).apply(this, arguments));
   }
 
@@ -7801,14 +7703,16 @@ function (_React$Component) {
       return React.createElement("span", null, this.props.date);
     }
   }]);
+
   return LastUpdate;
-}(React.Component);
+}(React.PureComponent);
 
 var Db =
 /*#__PURE__*/
 function () {
   function Db(data) {
     _classCallCheck(this, Db);
+
     this.data = data;
   }
 
@@ -7871,6 +7775,7 @@ function () {
       }, filter, this);
     })
   }]);
+
   return Db;
 }();
 
@@ -7915,16 +7820,32 @@ var PWoSDb = {
  */
 var ScrollMonitor =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(ScrollMonitor, _React$Component);
+function (_React$PureComponent) {
+  _inherits(ScrollMonitor, _React$PureComponent);
 
   function ScrollMonitor() {
-    var _this;
+    var _ref;
+
+    var _temp, _this;
 
     _classCallCheck(this, ScrollMonitor);
-    _this = _possibleConstructorReturn(this, (ScrollMonitor.__proto__ || Object.getPrototypeOf(ScrollMonitor)).call(this));
-    _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
-    return _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_ref = ScrollMonitor.__proto__ || Object.getPrototypeOf(ScrollMonitor)).call.apply(_ref, [this].concat(args))), Object.defineProperty(_assertThisInitialized(_this), "handleScroll", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        if (!_this.props.isMonitoring || _this.props.isLoading || !_this.isScrolledTo()) {
+          return;
+        }
+
+        _this.props.onLoadMore(event);
+      }
+    }), _temp));
   }
 
   _createClass(ScrollMonitor, [{
@@ -7947,15 +7868,6 @@ function (_React$Component) {
       var anchorBottom = this.anchor.offsetTop + (this.anchor.offsetHeight || 0 * 2);
       var screenBottom = window.pageYOffset + window.innerHeight || 0;
       return screenBottom > anchorBottom;
-    }
-  }, {
-    key: "handleScroll",
-    value: function handleScroll(event) {
-      if (!this.props.isMonitoring || this.props.isLoading || !this.isScrolledTo()) {
-        return;
-      }
-
-      this.props.onLoadMore(event);
     }
   }, {
     key: "render",
@@ -7983,23 +7895,30 @@ function (_React$Component) {
       }, "Loading entries\u2026"))));
     }
   }]);
+
   return ScrollMonitor;
-}(React.Component);
+}(React.PureComponent);
 
 /**
  * Table filter component.
  */
 var Filter =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Filter, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Filter, _React$PureComponent);
 
   function Filter() {
-    var _this;
+    var _ref;
+
+    var _temp, _this;
 
     _classCallCheck(this, Filter);
-    _this = _possibleConstructorReturn(this, (Filter.__proto__ || Object.getPrototypeOf(Filter)).call(this));
-    Object.defineProperty(_assertThisInitialized(_this), "handleFilter", {
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_ref = Filter.__proto__ || Object.getPrototypeOf(Filter)).call.apply(_ref, [this].concat(args))), Object.defineProperty(_assertThisInitialized(_this), "handleFilter", {
       configurable: true,
       enumerable: true,
       writable: true,
@@ -8019,8 +7938,7 @@ function (_React$Component) {
 
         _this.props.onFilter(filter);
       }
-    });
-    return _this;
+    }), _temp));
   }
 
   _createClass(Filter, [{
@@ -8046,8 +7964,9 @@ function (_React$Component) {
       }))));
     }
   }]);
+
   return Filter;
-}(React.Component);
+}(React.PureComponent);
 
 /**
  * Table header component.
@@ -8055,11 +7974,12 @@ function (_React$Component) {
 
 var Header =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Header, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Header, _React$PureComponent);
 
   function Header() {
     _classCallCheck(this, Header);
+
     return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
   }
 
@@ -8131,19 +8051,21 @@ function (_React$Component) {
       }))));
     }
   }]);
+
   return Header;
-}(React.Component);
+}(React.PureComponent);
 
 /**
  * Table attribute component.
  */
 var Attr =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Attr, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Attr, _React$PureComponent);
 
   function Attr() {
     _classCallCheck(this, Attr);
+
     return _possibleConstructorReturn(this, (Attr.__proto__ || Object.getPrototypeOf(Attr)).apply(this, arguments));
   }
 
@@ -8169,13 +8091,10 @@ function (_React$Component) {
       }, icon);
     }
   }]);
-  return Attr;
-}(React.Component);
 
-var MIN_LEN_BAD = 5;
-var MAX_LEN_BAD = 16;
-var SHAME_SCORE_BAD = 3;
-var ATTRS = ['alpha', 'digit', 'space', 'special', 'case', 'changeable', '2fa'];
+  return Attr;
+}(React.PureComponent);
+
 /**
  * Table row component.
  *
@@ -8184,37 +8103,57 @@ var ATTRS = ['alpha', 'digit', 'space', 'special', 'case', 'changeable', '2fa'];
 
 var Row =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Row, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Row, _React$PureComponent);
 
   function Row(props) {
     var _this;
 
     _classCallCheck(this, Row);
+
     _this = _possibleConstructorReturn(this, (Row.__proto__ || Object.getPrototypeOf(Row)).call(this, props));
     _this.state = {
       visible: !_this.isDelayed()
     };
     _this.shameScore = 0;
 
-    if (props.pw.min <= MIN_LEN_BAD) {
+    if (props.pw.min <= Row.MIN_LEN_BAD) {
       _this.shameScore++;
     }
 
-    if (props.pw.max <= MAX_LEN_BAD) {
+    if (props.pw.max <= Row.MAX_LEN_BAD) {
       _this.shameScore++;
     }
 
-    for (var _i = 0; _i < ATTRS.length; _i++) {
-      var attr = ATTRS[_i];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
-      // not there means false, supported attributes are explicitly set to true or onchange
-      if (!(attr in props.pw)) {
-        _this.shameScore += 1;
-      } else if (props.pw[attr] === 'onchange') {
-        _this.shameScore += 0.5;
-      } else if (props.pw[attr] !== true) {
-        _this.shameScore += 1;
+    try {
+      for (var _iterator = Row.ATTRS[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var _attr = _step.value;
+
+        // not there means false, supported attributes are explicitly set to true or onchange
+        if (!(_attr in props.pw)) {
+          _this.shameScore += 1;
+        } else if (props.pw[_attr] === 'onchange') {
+          _this.shameScore += 0.5;
+        } else if (props.pw[_attr] !== true) {
+          _this.shameScore += 1;
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return != null) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
       }
     }
 
@@ -8266,7 +8205,7 @@ function (_React$Component) {
       }
 
       var displayUrl = this.props.url.replace(/^https?\:\/\//i, '').replace(/()*\/$/, '$1');
-      var attributes = ATTRS.map(function (attr, index) {
+      var attributes = Row.ATTRS.map(function (attr, index) {
         return React.createElement(Attr, {
           name: attr,
           value: _this3.props.pw[attr],
@@ -8289,18 +8228,44 @@ function (_React$Component) {
       }, React.createElement("i", {
         "class": "fas fa-fw fa-external-link-alt"
       }))), React.createElement("td", {
-        "class": 'attr min ' + (this.props.pw.min <= MIN_LEN_BAD ? 'text-danger' : '')
+        "class": 'attr min ' + (this.props.pw.min <= Row.MIN_LEN_BAD ? 'text-danger' : '')
       }, this.props.pw.min), React.createElement("td", {
-        "class": 'attr max ' + (this.props.pw.max <= MAX_LEN_BAD ? 'text-danger' : '')
+        "class": 'attr max ' + (this.props.pw.max <= Row.MAX_LEN_BAD ? 'text-danger' : '')
       }, this.props.pw.max), attributes, React.createElement("td", {
         "class": "pl-3"
       }, React.createElement("span", {
-        "class": 'text-bold attr-score ' + (this.shameScore >= SHAME_SCORE_BAD ? 'text-danger' : '')
-      }, this.shameScore), React.createElement("small", null, "\xA0/\xA0", ATTRS.length + 2)));
+        "class": 'text-bold attr-score ' + (this.shameScore >= Row.SHAME_SCORE_BAD ? 'text-danger' : '')
+      }, this.shameScore), React.createElement("small", null, "\xA0/\xA0", Row.ATTRS.length + 2)));
     }
   }]);
+
   return Row;
-}(React.Component);
+}(React.PureComponent);
+
+Object.defineProperty(Row, "MIN_LEN_BAD", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: 5
+});
+Object.defineProperty(Row, "MAX_LEN_BAD", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: 16
+});
+Object.defineProperty(Row, "SHAME_SCORE_BAD", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: 3
+});
+Object.defineProperty(Row, "ATTRS", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: ['alpha', 'digit', 'space', 'special', 'case', 'changeable', '2fa']
+});
 
 /**
  * Table body component.
@@ -8308,11 +8273,12 @@ function (_React$Component) {
 
 var Body =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Body, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Body, _React$PureComponent);
 
   function Body() {
     _classCallCheck(this, Body);
+
     return _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).apply(this, arguments));
   }
 
@@ -8335,8 +8301,9 @@ function (_React$Component) {
       return React.createElement("tbody", null, rows);
     }
   }]);
+
   return Body;
-}(React.Component);
+}(React.PureComponent);
 
 /**
  * Sites table component.
@@ -8344,11 +8311,12 @@ function (_React$Component) {
 
 var Table =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Table, _React$Component);
+function (_React$PureComponent) {
+  _inherits(Table, _React$PureComponent);
 
   function Table() {
     _classCallCheck(this, Table);
+
     return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).apply(this, arguments));
   }
 
@@ -8365,11 +8333,10 @@ function (_React$Component) {
       }));
     }
   }]);
-  return Table;
-}(React.Component);
 
-var MAX_RESULTS = 30;
-var DB_URL = 'data/db.json?v=' + PWOS_VERSION;
+  return Table;
+}(React.PureComponent);
+
 /**
  * Main app component.
  */
@@ -8383,6 +8350,7 @@ function (_React$Component) {
     var _this;
 
     _classCallCheck(this, App);
+
     _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
     Object.defineProperty(_assertThisInitialized(_this), "getResults", {
       configurable: true,
@@ -8435,7 +8403,7 @@ function (_React$Component) {
       this.setState({
         isLoading: true
       });
-      var promise = PWoSDb.load(DB_URL).then(function (resultDb) {
+      var promise = PWoSDb.load(App.DB_URL).then(function (resultDb) {
         _this2.db = resultDb;
 
         _this2.getResults();
@@ -8487,7 +8455,7 @@ function (_React$Component) {
       var site = this.results.next();
       var count = 0;
 
-      while (site && !site.done && site.value && count < MAX_RESULTS) {
+      while (site && !site.done && site.value && count < App.MAX_RESULTS) {
         sites.push(site.value);
         site = this.results.next();
         count++;
@@ -8508,7 +8476,7 @@ function (_React$Component) {
       }, React.createElement(Table, {
         sites: this.state.sites || [],
         onFilter: this.getResults,
-        delayMod: MAX_RESULTS
+        delayMod: App.MAX_RESULTS
       }), React.createElement(Alert, {
         errorLoading: this.state.errorLoading || false
       })), React.createElement(ScrollMonitor, {
@@ -8518,11 +8486,26 @@ function (_React$Component) {
       }));
     }
   }]);
+
   return App;
 }(React.Component);
 
+Object.defineProperty(App, "MAX_RESULTS", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: 30
+});
+Object.defineProperty(App, "DB_URL", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: 'data/db.json?v=' + PWOS_VERSION
+});
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 var LAST_UPDATE = new Date(PWOS_VERSION * 1000);
 ReactDOM.render(React.createElement(LastUpdate, {
   date: LAST_UPDATE.toString()
 }), document.getElementById('last-update'));
+
+//# sourceMappingURL=index.js.map
