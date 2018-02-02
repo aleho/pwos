@@ -1,13 +1,7 @@
 /**
  * Scroll monitor component
  */
-export default class ScrollMonitor extends React.Component {
-    constructor() {
-        super();
-
-        this.handleScroll = this.handleScroll.bind(this);
-    }
-
+export default class ScrollMonitor extends React.PureComponent {
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
     }
@@ -27,7 +21,7 @@ export default class ScrollMonitor extends React.Component {
         return (screenBottom > anchorBottom);
     }
 
-    handleScroll(event) {
+    handleScroll = (event) => {
         if (!this.props.isMonitoring
             || this.props.isLoading
             || !this.isScrolledTo()

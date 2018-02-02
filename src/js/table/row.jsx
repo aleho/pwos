@@ -1,36 +1,33 @@
 import Attr from './attr.jsx';
 
-const MIN_LEN_BAD     = 5;
-const MAX_LEN_BAD     = 16;
-const SHAME_SCORE_BAD = 3;
-const ATTRS           = [
-    'alpha', 'digit', 'space', 'special', 'case', 'changeable', '2fa'
-];
-
-let DELAY_COUNTER = 0;
-
-
 /**
  * Table row component.
  *
  * TODO: add comments in modal (?)
  */
-export default class Row extends React.Component {
+export default class Row extends React.PureComponent {
+    static MIN_LEN_BAD     = 5;
+    static MAX_LEN_BAD     = 16;
+    static SHAME_SCORE_BAD = 3;
+    static ATTRS           = [
+        'alpha', 'digit', 'space', 'special', 'case', 'changeable', '2fa'
+    ];
+
     constructor(props) {
         super(props);
         this.state = {visible: !this.isDelayed()};
 
         this.shameScore = 0;
 
-        if (props.pw.min <= MIN_LEN_BAD) {
+        if (props.pw.min <= Row.MIN_LEN_BAD) {
             this.shameScore++;
         }
 
-        if (props.pw.max <= MAX_LEN_BAD) {
+        if (props.pw.max <= Row.MAX_LEN_BAD) {
             this.shameScore++;
         }
 
-        for (let attr of ATTRS) {
+        for (const attr of Row.ATTRS) {
             // not there means false, supported attributes are explicitly set to true or onchange
             if (!(attr in props.pw)) {
                 this.shameScore += 1;
@@ -80,11 +77,11 @@ export default class Row extends React.Component {
             rowClasses = 'fadeIn animated';
         }
 
-        let displayUrl = this.props.url
+        const displayUrl = this.props.url
             .replace(/^https?\:\/\//i, '')
             .replace(/()*\/$/, '$1');
 
-        let attributes = ATTRS.map((attr, index) =>
+        const attributes = Row.ATTRS.map((attr, index) =>
             <Attr name={attr} value={this.props.pw[attr]} key={index} />
         );
 
@@ -100,14 +97,14 @@ export default class Row extends React.Component {
                     </a>
                 </td>
 
-                <td class={'attr min ' + (this.props.pw.min <= MIN_LEN_BAD ? 'text-danger' : '')}>{this.props.pw.min}</td>
-                <td class={'attr max ' + (this.props.pw.max <= MAX_LEN_BAD ? 'text-danger' : '')}>{this.props.pw.max}</td>
+                <td class={'attr min ' + (this.props.pw.min <= Row.MIN_LEN_BAD ? 'text-danger' : '')}>{this.props.pw.min}</td>
+                <td class={'attr max ' + (this.props.pw.max <= Row.MAX_LEN_BAD ? 'text-danger' : '')}>{this.props.pw.max}</td>
 
                 {attributes}
 
                 <td class="pl-3">
-                    <span class={'text-bold attr-score ' + (this.shameScore >= SHAME_SCORE_BAD ? 'text-danger' : '')}>
-                        {this.shameScore}</span><small>&nbsp;/&nbsp;{ATTRS.length + 2}
+                    <span class={'text-bold attr-score ' + (this.shameScore >= Row.SHAME_SCORE_BAD ? 'text-danger' : '')}>
+                        {this.shameScore}</span><small>&nbsp;/&nbsp;{Row.ATTRS.length + 2}
                     </small>
                 </td>
             </tr>

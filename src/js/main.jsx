@@ -4,13 +4,14 @@ import PWoSDb from './lib/database.js';
 import ScrollMonitor from './scrollMonitor.jsx';
 import Table from './table/table.jsx';
 
-const MAX_RESULTS = 30;
-const DB_URL = 'data/db.json?v=' + PWOS_VERSION;
 
 /**
  * Main app component.
  */
 class App extends React.Component {
+    static MAX_RESULTS = 30;
+    static DB_URL      = 'data/db.json?v=' + PWOS_VERSION;
+
     constructor() {
         super();
 
@@ -31,8 +32,8 @@ class App extends React.Component {
     loadDb() {
         this.setState({isLoading: true});
 
-        let promise = PWoSDb
-            .load(DB_URL)
+        const promise = PWoSDb
+            .load(App.DB_URL)
             .then(resultDb => {
                 this.db = resultDb;
                 this.getResults();
@@ -55,7 +56,7 @@ class App extends React.Component {
             };
 
         } else {
-            for (let attr in filter) {
+            for (const attr in filter) {
                 this.filter[attr] = filter[attr];
             }
         }
@@ -83,11 +84,11 @@ class App extends React.Component {
             return;
         }
 
-        let sites = this.state.sites.slice();
-        let site  = this.results.next();
-        let count = 0;
+        const sites = this.state.sites.slice();
+        let site    = this.results.next();
+        let count   = 0;
 
-        while (site && !site.done && site.value && count < MAX_RESULTS) {
+        while (site && !site.done && site.value && count < App.MAX_RESULTS) {
             sites.push(site.value);
             site = this.results.next();
             count++;
@@ -110,7 +111,7 @@ class App extends React.Component {
                 <Table
                     sites={this.state.sites || []}
                     onFilter={this.getResults}
-                    delayMod={MAX_RESULTS}
+                    delayMod={App.MAX_RESULTS}
                 />
 
                 <Alert errorLoading={this.state.errorLoading || false} />

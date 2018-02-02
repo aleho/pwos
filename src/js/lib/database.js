@@ -6,11 +6,12 @@ class Db {
     * filter(filter) {
         filter = filter || {};
 
-        let fTitle = filter.title ? new RegExp(filter.title, 'i') : null;
-        let fUrl   = filter.url   ? new RegExp(filter.url, 'i')   : null;
+        const fTitle = filter.title ? new RegExp(filter.title, 'i') : null;
+        const fUrl   = filter.url   ? new RegExp(filter.url, 'i')   : null;
 
         for (let i = 0; i < this.data.length; i++) {
-            let site = this.data[i];
+            const site = this.data[i];
+
             if (!('id' in site)) {
                 site.id = parseInt(i) + 1;
             }
@@ -41,7 +42,7 @@ function load(url) {
     }
 
     return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
         xhr.open('GET', url);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function() {

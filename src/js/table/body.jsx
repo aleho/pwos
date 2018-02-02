@@ -3,9 +3,9 @@ import Row from './row.jsx';
 /**
  * Table body component.
  */
-export default class Body extends React.Component {
+export default class Body extends React.PureComponent {
     render() {
-        let rows = this.props.sites.map((site, index) =>
+        const rows = this.props.sites.map((site, index) =>
             <Row
                 key={site.id}
                 id={site.id}

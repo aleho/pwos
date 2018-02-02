@@ -3,7 +3,7 @@ import Filter from './filter.jsx';
 /**
  * Table header component.
  */
-export default class Header extends React.Component {
+export default class Header extends React.PureComponent {
     render() {
         return (
             <thead>

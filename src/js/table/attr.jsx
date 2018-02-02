@@ -1,7 +1,7 @@
 /**
  * Table attribute component.
  */
-export default class Attr extends React.Component {
+export default class Attr extends React.PureComponent {
     render() {
         let icon = '';
 

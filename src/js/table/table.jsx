@@ -4,7 +4,7 @@ import Body from './body.jsx';
 /**
  * Sites table component.
  */
-export default class Table extends React.Component {
+export default class Table extends React.PureComponent {
     render() {
         return (
             <table class="table table-striped table-hover table-sm">
