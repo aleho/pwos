@@ -8,6 +8,7 @@ const filter     = require('gulp-filter');
 const gulp       = require('gulp');
 const gulpIf     = require('gulp-if');
 const log        = require('fancy-log');
+const merge      = require('merge-stream');
 const path       = require('path');
 const rename     = require('gulp-rename');
 const replace    = require('gulp-replace');
@@ -67,10 +68,10 @@ if (process.argv.length > 2 && process.argv[2] == '--watch') {
  * Add a task.
  */
 function addTasks(type, files, build) {
-    for (let group in files) {
-        let filesGroup = files[group];
-        let filename   = group + '.' + type;
-        let taskname   = type + ': ' + group;
+    for (const group in files) {
+        const filesGroup = files[group];
+        const filename   = group + '.' + type;
+        const taskname   = type + ': ' + group;
 
         gulp.task(taskname, done => {
             return build(filename, filesGroup, done);
@@ -86,28 +87,35 @@ function addTasks(type, files, build) {
 
 
 addTasks('js', JS_FILES, (filename, files) => {
-    return gulp
+    const build = gulp
         .src(files)
+        .pipe(sourcemaps.init())
         .pipe(rollup({
             plugins: [babel({
                 exclude: 'node_modules/**',
                 presets: [
-                    ["@babel/env", { "modules": false }],
-                    ["@babel/react"],
+                    ['@babel/env', { 'modules': false }],
+                    ['@babel/react'],
                 ],
                 plugins: [
-                    ["@babel/plugin-proposal-class-properties"],
+                    ['@babel/plugin-proposal-class-properties'],
                 ],
             })]
         }, {
             format: 'cjs',
         }))
         .pipe(concat(filename))
-        .pipe(gulp.dest(JS_OUT))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(JS_OUT));
 
+    const minify = gulp
+        .src(JS_OUT + filename)
         .pipe(uglifyJs())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(JS_OUT));
+
+
+    return merge(build, minify);
 });
 
 
@@ -136,7 +144,7 @@ addTasks('html', HTML_FILES, (filename, files) => {
 
 
 addTasks('json', JSON_FILES, (outname, source, done) => {
-    let out = DATA_OUT + outname;
+    const out = DATA_OUT + outname;
 
     // build compact json file
     exec("jq -c '.' " + source + ' > ' + out, (err, stdout, stderr) => {
@@ -150,7 +158,7 @@ addTasks('json', JSON_FILES, (outname, source, done) => {
 });
 
 
-let gulpSeries = ['build'];
+const gulpSeries = ['build'];
 gulp.task('build', gulp.parallel(TASKS));
 
 if (OPTIONS.watch) {
@@ -158,13 +166,13 @@ if (OPTIONS.watch) {
     gulp.task('watch', done => {
         log('\u001b[33m' + 'Now watching for file changes...' + '\u001b[39m');
 
-        for (let task in WATCHES) {
-            let files = WATCHES[task];
-            let dirs  = {};
+        for (const task in WATCHES) {
+            let files  = WATCHES[task];
+            const dirs = {};
             if (typeof files !== 'object') {
                 files = [files];
             }
-            for (let file of files) {
+            for (const file of files) {
                 dirs['./' + path.dirname(file) + '/**/*' + path.extname(file)] = true;
             }
             gulp.watch(Object.keys(dirs), gulp.series(task));
