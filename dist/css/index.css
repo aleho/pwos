@@ -3365,8 +3365,14 @@
   -webkit-animation-delay: 1200ms;
   animation-delay: 1200ms; }
 
+html {
+  min-height: 101%; }
+
 body {
   font-family: "Roboto", sans-serif; }
+
+.jumbotron {
+  background-color: transparent; }
 
 tr th.attr > * {
   display: inline-block;
@@ -3377,6 +3383,9 @@ tr th input.form-control-sm {
 
 tr th.attr, tr td.attr {
   text-align: center; }
+
+a.url {
+  color: #495057; }
 
 @media (max-width: 1199px) {
   td a.url.text-truncate {
