@@ -7483,8 +7483,8 @@ module.exports = _dereq_(22);
 
 'use strict';
 
-var PWOS_VERSION = 1517175060;
-var PWOS_DATE = '20180128_223100';
+var PWOS_VERSION = 1517697306;
+var PWOS_DATE = '20180203_233506';
 
 if (typeof window === 'undefined') {
   exports.PWOS_VERSION = PWOS_VERSION;
@@ -8324,7 +8324,7 @@ function (_React$PureComponent) {
     key: "render",
     value: function render() {
       return React.createElement("table", {
-        "class": "table table-striped table-hover table-sm"
+        "class": "table table-hover table-sm"
       }, React.createElement(Header, {
         onFilter: this.props.onFilter
       }), React.createElement(Body, {
