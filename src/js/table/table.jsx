@@ -7,7 +7,7 @@ import Body from './body.jsx';
 export default class Table extends React.PureComponent {
     render() {
         return (
-            <table class="table table-striped table-hover table-sm">
+            <table class="table table-hover table-sm">
                 <Header
                     onFilter={this.props.onFilter}
                 />

@@ -30,10 +30,14 @@
         -webkit-animation-delay: #{$delay}ms
         animation-delay: #{$delay}ms
 
+html
+    min-height: 101%
 
 body
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif
 
+.jumbotron
+    background-color: transparent
 
 tr
 	th
@@ -49,5 +53,7 @@ tr
 	    &.attr
 	        text-align: center
 
+a.url
+    color: #495057
 
 @include truncate-text('td a.url.text-truncate')
