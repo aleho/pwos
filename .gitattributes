@@ -1,3 +1,5 @@
 dist/data/** binary
 dist/css/** binary
 dist/js/** binary
+dist/img/** binary
+src/img/** binary

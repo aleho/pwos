@@ -11,3 +11,9 @@ see the latest release in action.
 
 Contributions of any kind are welcome. You can either create an issue or, even
 better, a pull request.
+
+
+## Attributions
+
+Icon: [Facepalm by Edward Boatman](https://thenounproject.com/term/facepalm/18486/)
+from the Noun Project, licensed as [Creative Commons CCBY](https://creativecommons.org/licenses/by/3.0/us/legalcode).

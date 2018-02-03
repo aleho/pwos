@@ -5,6 +5,7 @@ const babel      = require('rollup-plugin-babel');
 const concat     = require('gulp-concat');
 const exec       = require('child_process').exec;
 const filter     = require('gulp-filter');
+const favicons   = require('gulp-favicons');
 const gulp       = require('gulp');
 const gulpIf     = require('gulp-if');
 const log        = require('fancy-log');
@@ -26,6 +27,7 @@ const DIST     = 'dist/';
 const JS_OUT   = DIST + 'js/';
 const CSS_OUT  = DIST + 'css/';
 const DATA_OUT = DIST + 'data/';
+const IMG_OUT  = DIST + 'img/';
 const TASKS    = [];
 const WATCHES  = {};
 
@@ -50,6 +52,10 @@ const HTML_FILES = {
     ],
 };
 
+const IMG_FILES = {
+    'img': [SRC + 'img/facepalm.png'],
+};
+
 const JSON_FILES = {
     'db': SRC + 'data/db.json',
 };
@@ -71,7 +77,7 @@ function addTasks(type, files, build) {
     for (const group in files) {
         const filesGroup = files[group];
         const filename   = group + '.' + type;
-        const taskname   = type + ': ' + group;
+        const taskname   = type + ':' + group;
 
         gulp.task(taskname, done => {
             return build(filename, filesGroup, done);
@@ -135,6 +141,13 @@ addTasks('css', CSS_FILES, (filename, files) => {
 });
 
 
+addTasks('img', IMG_FILES, (filename, files) => {
+    return gulp
+        .src(files)
+        .pipe(gulp.dest(IMG_OUT));
+});
+
+
 addTasks('html', HTML_FILES, (filename, files) => {
     return gulp
         .src(files)
@@ -183,3 +196,33 @@ if (OPTIONS.watch) {
 }
 
 gulp.task('default', gulp.series(gulpSeries));
+
+
+gulp.task('favicons', () => {
+    return gulp
+        .src(SRC + 'img/facepalm.svg')
+        .pipe(favicons({
+            appName: 'PWoS',
+            appDescription: 'Passwords of Shame',
+            developerName: 'aleho',
+            developerURL: 'https://github.com/aleho/pwos',
+            background: '#fff',
+            theme_color: '#fff',
+            path: '/',
+            version: vars.PWOS_DATE,
+            logging: false,
+            online: false,
+            preferOnline: false,
+            icons: {
+                favicons: true,
+                android: false,
+                appleIcon: false,
+                appleStartup: false,
+                coast: false,
+                firefox: false,
+                windows: false,
+                yandex: false,
+            },
+        }))
+        .pipe(gulp.dest(DIST + 'favicons'));
+});
